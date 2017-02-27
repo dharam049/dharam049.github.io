@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang='en-GB'>
+<head>
+  <meta charset='utf-8'>
+  <title>Progress bar</title>
+
+ 
+ <link rel="stylesheet" href="../public/lib/bootstrap-select/dist/css/bootstrap-select.css" />
+ <link rel="stylesheet" href="../public/lib/bootstrap/dist/css/bootstrap.css" />
+ 
+ <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+
+</head>
+
+<body>
+<div class="vertical-center">
+  <div class="container">
+    <div class="row">
+      <div id='container' class="p0 col-xs-6 col-xs-offset-3 col-md-4 col-md-offset-4">
+      </div>
+    </div>
+  </div>
+</div>
+    
+<script id="template" type='text/ractive'>
+    <h3>Assignment - Progress Bars</h3>
+    {{#each progressbars}}
+      <div class="row">
+        <div class="ptb10">
+          {{#if value <= 100}}
+          <div class="progress-bar ">
+              
+              <div class="progress-bar-fill" role="progressbar" style="width: {{value}}%">
+                   <div class="value">{{value}}%</div>
+            </div>
+          </div>
+          {{/if}}
+
+          {{#if value>100}}
+          <div class="progress-bar">
+            <div class="progress-bar-fill-red" style="width: 100%">
+                 <div class="value">{{value}}%</div>
+            </div>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    {{/each}}
+
+    <div class="row">
+      <div class="ptb10">
+      <div class="p0 col-xs-12">    
+        <select class="selectpicker" data-width="fit" value='{{selectedProgress}}'>
+            <option selected disabled>Select..</option>
+            {{#each progressbars :index}}
+                <option value='{{index}}'>{{name}}</option>
+            {{/each}}
+        </select>
+        {{#each amounts}}
+            <button class="btn btn-sm btn-default" disabled='{{selectedProgress == null}}' on-click='adjust(this)'>
+            {{this > 0 ? '+' : ''}}{{this}}</button>
+        {{/each}}
+        </div>
+      </div>
+    </div>
+</script>
+
+<script src='../public/lib/jquery/dist/jquery.js'></script>
+<script src='../public/lib/bootstrap-select/dist/js/bootstrap-select.js'></script>
+<script src='../public/lib/ractive/ractive.js'></script>
+<script src='../public/lib/bootstrap/dist/js/bootstrap.js'></script>
+
+
+<!-- include somefile.js -->
+<script type='text/javascript' src="assets/js/main.js" ></script>
+
+</body>
+</html>

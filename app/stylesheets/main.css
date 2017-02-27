@@ -1,0 +1,82 @@
+/* line 1, ../sass/main.scss */
+.row {
+  margin: 0 !important;
+}
+
+/* line 4, ../sass/main.scss */
+.vertical-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* line 10, ../sass/main.scss */
+.progress-bar {
+  position: relative;
+  width: 100%;
+  height: 25px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background: transparent !important;
+}
+.value{
+  margin: 0 auto;
+  color: #000;
+  width: 320px;
+  max-width: 320px;
+}
+/* line 18, ../sass/main.scss */
+.progress-bar-fill {
+  height: 23px;
+  background-color: orange;
+  border-radius: 5px;
+
+}
+
+/* line 24, ../sass/main.scss */
+.progress-bar-fill-red {
+  height: 23px;
+  background-color: red;
+  border-radius: 5px;
+
+}
+
+/* line 30, ../sass/main.scss */
+.progress-label {
+  text-align: center;
+  position: relative;
+  top: 0px;
+  left: 5px;
+  color: #000;
+}
+
+/* line 37, ../sass/main.scss */
+button.btn.btn-sm.btn-default {
+  margin: 0 4px;
+}
+.btn-sm, .btn-group-sm > .btn{
+  padding: 5px 8px;
+}
+
+/* line 40, ../sass/main.scss */
+.ptb10 {
+  padding: 10px 0;
+}
+
+/* line 43, ../sass/main.scss */
+.p0 {
+  padding: 0 !important;
+}
+
+/* line 48, ../sass/main.scss */
+input[type=range] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  /* essentially making range slider invisible */
+  opacity: 0;
+}
