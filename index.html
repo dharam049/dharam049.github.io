@@ -81,7 +81,7 @@ d3.csv("population.csv", function(data) {
 
   // Add a scale for bubble color
   var myColor = d3.scaleOrdinal()
-    .domain(["1950"])
+    .domain(["Burundi"])
     .range(d3.schemeSet1);
 
 
@@ -216,7 +216,7 @@ d3.csv("population.csv", function(data) {
 
     // Add one dot in the legend for each name.
     var size = 20
-    var allgroups = ["1950"]
+    var allgroups = ["Burundi"]
     svg.selectAll("myrect")
       .data(allgroups)
       .enter()
