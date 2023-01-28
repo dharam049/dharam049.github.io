@@ -39,7 +39,6 @@ var svg = d3.select("#my_dataviz")
 
 //Read the data
 d3.csv("./population.csv", function(data) {
-  console.log('****',data);
 
   // ---------------------------//
   //       AXIS  AND SCALE      //
@@ -156,7 +155,6 @@ d3.csv("./population.csv", function(data) {
       .attr("cx", function (d) { return x(parseInt(d.Population_Growth_Rate.replace(/,/g, ""))); } )
       .attr("cy", function (d) { return y(parseInt(d.Population_Density.replace(/,/g, ""))); } )
       .attr("r", function (d) { return z(parseInt(d.year.replace(/,/g, ""))); } )
-  .attr("fake", d=> console.log(parseInt(d.Population_Growth_Rate.replace(/,/g, ""))))
       .style("fill", function (d) { return myColor(d.country); } )
     // -3- Trigger the functions for hover
     .on("mouseover", showTooltip )
