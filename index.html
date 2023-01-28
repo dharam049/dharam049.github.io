@@ -154,7 +154,7 @@ d3.csv("./population.csv", function(data) {
       .attr("class", function(d) { return "bubbles " + d.country })
       .attr("cx", function (d) { return x(d.Population_Growth_Rate); } )
       .attr("cy", function (d) { return y(d.Population_Density); } )
-      .attr("r", function (d) { return z(d.Population); } )
+      .attr("r", function (d) { return z(d.year); } )
       .style("fill", function (d) { return myColor(d.country); } )
     // -3- Trigger the functions for hover
     .on("mouseover", showTooltip )
