@@ -62,7 +62,7 @@ d3.csv("population.csv", function(data) {
   // Add Y axis
   var y = d3.scaleLinear()
     .domain([-100, 100])
-    .range([ height, 0]);
+    .range([0,height]);
   svg.append("g")
     .call(d3.axisLeft(y));
 
