@@ -183,29 +183,29 @@ d3.csv("population.csv", function(data) {
         .attr("stroke", "black")
 
     // Add legend: segments
-    svg
-      .selectAll("legend")
-      .data(valuesToShow)
-      .enter()
-      .append("line")
-        .attr('x1', function(d){ return xCircle + z(d) } )
-        .attr('x2', xLabel)
-        .attr('y1', function(d){ return height - 100 - z(d) } )
-        .attr('y2', function(d){ return height - 100 - z(d) } )
-        .attr('stroke', 'black')
-        .style('stroke-dasharray', ('2,2'))
+//     svg
+//       .selectAll("legend")
+//       .data(valuesToShow)
+//       .enter()
+//       .append("line")
+//         .attr('x1', function(d){ return xCircle + z(d) } )
+//         .attr('x2', xLabel)
+//         .attr('y1', function(d){ return height - 100 - z(d) } )
+//         .attr('y2', function(d){ return height - 100 - z(d) } )
+//         .attr('stroke', 'black')
+//         .style('stroke-dasharray', ('2,2'))
 
     // Add legend: labels
-    svg
-      .selectAll("legend")
-      .data(valuesToShow)
-      .enter()
-      .append("text")
-        .attr('x', xLabel)
-        .attr('y', function(d){ return height - 100 - z(d) } )
-        .text( function(d){ return d/1000000 } )
-        .style("font-size", 10)
-        .attr('alignment-baseline', 'middle')
+//     svg
+//       .selectAll("legend")
+//       .data(valuesToShow)
+//       .enter()
+//       .append("text")
+//         .attr('x', xLabel)
+//         .attr('y', function(d){ return height - 100 - z(d) } )
+//         .text( function(d){ return d/1000000 } )
+//         .style("font-size", 10)
+//         .attr('alignment-baseline', 'middle')
 
     // Legend title
     // svg.append("text")
