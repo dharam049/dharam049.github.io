@@ -46,7 +46,7 @@ d3.csv("population.csv", function(data) {
 
   // Add X axis
   var x = d3.scaleLinear()
-    .domain([0, 45000])
+    .domain([0, 800])
     .range([ 0, width ]);
   svg.append("g")
     .attr("transform", "translate(0," + height + ")")
