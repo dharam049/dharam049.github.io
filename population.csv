@@ -1,1 +1,10 @@
-country,year, Population (000s) , Population_Density , Population_Growth_Rate Burundi,1950,"2,229",87,2.2Burundi,1951,"2,279",89,2.11Burundi,1952,"2,328",91,2.04Burundi,1953,"2,375",92,1.97Burundi,1954,"2,423",94,1.97Burundi,1955,"2,471",96,1.96Burundi,1956,"2,520",98,1.94Burundi,1957,"2,569",100,1.92Burundi,1958,"2,619",102,1.85
+country,year,Population,Population_Density,Population_Growth_Rate 
+Burundi,1950,"2,229",87,2.2
+Burundi,1951,"2,279",89,2.11
+Burundi,1952,"2,328",91,2.04
+Burundi,1953,"2,375",92,1.97
+Burundi,1954,"2,423",94,1.97
+Burundi,1955,"2,471",96,1.96
+Burundi,1956,"2,520",98,1.94
+Burundi,1957,"2,569",100,1.92
+Burundi,1958,"2,619",102,1.85
