@@ -4,506 +4,227 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SK Hospitality | Luxury Hotels & Investments</title>
-<meta name="description" content="Luxury hospitality, hotels, resorts & investment advisory.">
-
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* --- CORE STYLES --- */
 :root { 
     --gold: #c9a24d; 
     --text: #1f2937; 
-    --soft: #f8f9fb; 
-    /* This variable controls the header height easily */
     --header-height: 140px; 
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; color: var(--text); scroll-behavior: smooth; overflow-x: hidden; line-height: 1.6; }
 
-/* Fixed scroll position for a taller header */
-section { scroll-margin-top: var(--header-height); }
-
-body {
-  font-family: 'Inter', sans-serif;
-  color: var(--text);
-  scroll-behavior: smooth;
-  animation: pageFade .8s ease;
-  overflow-x: hidden; 
-}
-
-@keyframes pageFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
-
-/* --- HEADER & LARGE LOGO --- */
+/* --- HEADER --- */
 header {
-  position: fixed; top: 0; width: 100%;
-  background: #fff; z-index: 1000;
-  box-shadow: 0 8px 30px rgba(0,0,0,.05);
+    position: fixed; top: 0; width: 100%;
+    background: #fff; z-index: 1000;
+    box-shadow: 0 8px 30px rgba(0,0,0,.05);
 }
-
 .nav {
-  max-width: 1300px; margin: auto;
-  padding: 0.5rem 2rem; /* Reduced padding because logo provides the height */
-  display: flex; justify-content: space-between; align-items: center;
-  min-height: var(--header-height);
+    max-width: 1300px; margin: auto; padding: 0 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    min-height: var(--header-height);
 }
+.logo img { height: 120px; mix-blend-mode: multiply; }
+nav ul { display: flex; gap: 2rem; list-style: none; }
+nav a { text-decoration: none; color: #333; font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
 
-.logo {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
-
-.logo img {
-  /* BIGGER LOGO: Adjusted to 125px to be truly prominent */
-  height: 125px; 
-  width: auto;
-  object-fit: contain;
-  display: block;
-  /* TRANSPARENCY FIX: Removes white background box from your JPEG */
-  mix-blend-mode: multiply; 
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.logo:hover img {
-  transform: scale(1.05);
-}
-
-/* --- NAVIGATION --- */
-nav ul { display: flex; gap: 2.5rem; list-style: none; }
-nav a { 
-    text-decoration: none; 
-    color: #333; 
-    font-weight: 600; 
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    position: relative; 
-    transition: 0.3s; 
-}
-nav a:hover, nav a.active { color: var(--gold); }
-nav a.active::after {
-  content: ""; width: 100%; height: 2px;
-  background: var(--gold); position: absolute; bottom: -8px; left: 0;
-}
-
-/* --- MOBILE MENU --- */
-.menu-toggle { display: none; flex-direction: column; cursor: pointer; }
-.menu-toggle span { width: 25px; height: 3px; background: #333; margin: 4px 0; transition: .4s; }
-
-@media(max-width: 768px) {
-  :root { --header-height: 100px; }
-  .menu-toggle { display: flex; }
-  .logo img { height: 85px; } 
-  nav ul {
-    position: fixed; top: 0; right: -100%;
-    height: 100%; width: 280px;
-    background: #fff; flex-direction: column;
-    padding: 6rem 2rem;
-    transition: .4s ease; z-index: 1001;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-  }
-  nav ul.active { right: 0; }
-  nav ul li { margin-bottom: 2rem; }
-}
-
-#menu-overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,.35);
-  opacity: 0; visibility: hidden;
-  transition: .3s; z-index: 1000;
-}
-#menu-overlay.active { opacity: 1; visibility: visible; }
-
-/* --- HERO --- */
+/* --- HERO (INTERACTIVE HOVER) --- */
 .hero {
-  height: 90vh;
-  /* Adjusted margin-top to match the new header height */
-  margin-top: calc(var(--header-height) - 20px);
-  background: linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.35)), url("./merge5.png");
-  background-size: cover; background-position: center;
-  display: flex; align-items: center; justify-content: center;
-  text-align: center; padding: 2rem;
+    height: 85vh;
+    margin-top: var(--header-height);
+    background: url("./merge5.png") no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
 }
-.hero h1 { font-family: 'Playfair Display', serif; color: #fff; font-size: 4rem; line-height: 1.2; }
-.hero p { color: #eee; margin: 1.5rem auto; max-width: 750px; font-size: 1.25rem; }
 
-.btn {
-  background: var(--gold); color: #fff;
-  padding: 18px 45px; border-radius: 4px;
-  text-decoration: none; display: inline-block;
-  font-weight: 600; text-transform: uppercase;
-  letter-spacing: 1.5px; transition: 0.3s;
+/* Subtle dark overlay that only appears on hover */
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    z-index: 1;
 }
-.btn:hover { background: #b08d3d; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
-/* --- SECTIONS --- */
-section { padding: 8rem 2rem; }
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    max-width: 800px;
+    /* HIDDEN BY DEFAULT */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* HOVER TRIGGER */
+.hero:hover::before { opacity: 1; }
+.hero:hover .hero-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hero h1 { font-family: 'Playfair Display', serif; font-size: 4rem; line-height: 1.1; margin-bottom: 15px; }
+.hero p { font-size: 1.3rem; margin-bottom: 30px; }
+
+/* --- GENERAL SECTION STYLING --- */
+section { padding: 4rem 2rem; }
 .container { max-width: 1200px; margin: auto; }
-h2 {
-  text-align: center; color: var(--gold);
-  font-family: 'Playfair Display', serif; margin-bottom: 4rem; font-size: 3rem;
-}
-h2::after {
-  content: ""; width: 80px; height: 2px;
-  background: var(--gold); display: block; margin: 20px auto 0;
-}
+h2 { text-align: center; color: var(--gold); font-family: 'Playfair Display', serif; margin-bottom: 2.5rem; font-size: 2.5rem; position: relative; padding-bottom: 15px; }
+h2::after { content: ""; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 2px; background: var(--gold); }
 
 /* ABOUT */
-.about { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-.about img { width: 100%; border-radius: 4px; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
-.about p { line-height: 2; color: #555; font-size: 1.1rem; }
+.about { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+.about img { width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
 
-/* PROPERTIES */
-.property-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-.property {
-  border-radius: 4px; overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,.05);
-  cursor: pointer; transition: .4s; position: relative;
-}
-.property img { width: 100%; height: 320px; object-fit: cover; }
-.property h4 {
-  position: absolute; bottom: 0; width: 100%;
-  padding: 2rem 1rem 1.5rem; color: #fff;
-  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-}
-.property:hover { transform: translateY(-10px); }
+/* PROPERTIES (RESTORED) */
+.property-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.property { position: relative; border-radius: 8px; overflow: hidden; height: 320px; }
+.property img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+.property h4 { position: absolute; bottom: 0; width: 100%; padding: 25px 15px 15px; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,0.9)); font-size: 0.85rem; }
 
-/* TEAM */
-.team-track { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
-.team-card { perspective: 1200px; }
-.team-inner { height: 380px; transition: .8s; transform-style: preserve-3d; position: relative; }
+/* TEAM (8 MEMBERS RESTORED) */
+.team-track { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.team-card { perspective: 1000px; height: 380px; }
+.team-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d; }
 .team-card:hover .team-inner { transform: rotateY(180deg); }
-.team-front, .team-back {
-  position: absolute; inset: 0; background: #fff; border-radius: 4px;
-  backface-visibility: hidden; box-shadow: 0 15px 40px rgba(0,0,0,.08);
-  display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem;
-}
-.team-front img { width: 130px; height: 130px; border-radius: 50%; border: 3px solid var(--gold); margin-bottom: 1.5rem; object-fit: cover; }
-.team-back { transform: rotateY(180deg); background: #f9f6ef; text-align: center; }
-.team-back p {
-    font-size: 12px;      /* paragraph smaller */
-    line-height: 1.5;
-}
-.team-front p {
-    font-size: 12px;      /* paragraph smaller */
-    line-height: 1.5;
-}
+.team-front, .team-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; padding: 25px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; border: 1px solid #eee; }
+.team-front img { width: 110px; height: 110px; border-radius: 50%; border: 3px solid var(--gold); margin-bottom: 15px; object-fit: cover; }
+.team-back { transform: rotateY(180deg); background: #fdfaf3; text-align: center; }
+.team-back p, .team-front p { font-size: 11px; line-height: 1.5; color: #666; }
 
-/* CONTACT */
-.contact form { max-width: 700px; margin: auto; display: grid; gap: 1.5rem; }
-.contact input, .contact textarea { 
-  padding: 18px; border-radius: 4px; border: 1px solid #eee; background: #fafafa;
-  font-family: inherit; width: 100%; transition: 0.3s;
-}
-.contact input:focus, .contact textarea:focus { border-color: var(--gold); outline: none; background: #fff; }
+/* CONTACT & GALLERY SLIDER */
+.contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+.slider-container { width: 100%; height: 450px; overflow: hidden; border-radius: 12px; position: relative; }
+.slider-track { display: flex; width: 400%; height: 100%; animation: autoSlide 16s infinite ease-in-out; }
+.slide { width: 25%; }
+.slide img { width: 100%; height: 100%; object-fit: cover; }
 
-/* MAP & INFO */
-.map-wrapper { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 3rem; margin-top: 5rem; }
-.map-wrapper iframe { width: 100%; height: 400px; border: 0; border-radius: 4px; }
-.map-info { padding: 2rem; display: flex; flex-direction: column; justify-content: center; }
-.map-info h3 { font-family: 'Playfair Display', serif; color: var(--gold); margin-bottom: 1.5rem; font-size: 1.8rem; }
-
-/* WHATSAPP */
-.whatsapp {
-  position: fixed; right: 30px; bottom: 30px;
-  width: 65px; height: 65px; border-radius: 50%;
-  background: #25d366; color: #fff;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 32px; text-decoration: none;
-  box-shadow: 0 10px 30px rgba(37,211,102,.4);
-  z-index: 999; animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(37,211,102, .6); }
-  70% { box-shadow: 0 0 0 20px rgba(37,211,102, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(37,211,102, 0); }
+@keyframes autoSlide {
+    0%, 20% { transform: translateX(0); }
+    25%, 45% { transform: translateX(-25%); }
+    50%, 70% { transform: translateX(-50%); }
+    75%, 95% { transform: translateX(-75%); }
+    100% { transform: translateX(0); }
 }
 
-@media(max-width: 992px) {
-  .property-grid, .team-track { grid-template-columns: repeat(2, 1fr); }
-  .map-wrapper, .about { grid-template-columns: 1fr; }
-  .hero h1 { font-size: 2.8rem; }
+.contact-form { display: grid; gap: 1rem; }
+.contact-form input, .contact-form textarea { padding: 16px; border: 1px solid #ddd; border-radius: 6px; width: 100%; }
+.submit-btn { background: var(--gold); color: white; border: none; padding: 16px; font-weight: bold; cursor: pointer; border-radius: 6px; text-transform: uppercase; }
+
+@media(max-width: 1024px) { 
+    .team-track, .property-grid { grid-template-columns: repeat(2, 1fr); } 
 }
-/* ===============================
-   MOBILE RESPONSIVE (PHONES)
-   =============================== */
-@media (max-width: 576px) {
-
-  :root {
-    --header-height: 85px;
-  }
-
-  /* HEADER */
-  .nav {
-    padding: 0.5rem 1rem;
-  }
-
-  .logo img {
-    height: 65px;
-  }
-
-  /* HERO */
-  .hero {
-    height: auto;
-    padding: 4rem 1.2rem;
-    margin-top: var(--header-height);
-  }
-
-  .hero h1 {
-    font-size: 2rem;
-    line-height: 1.3;
-  }
-
-  .hero p {
-    font-size: 1rem;
-  }
-
-  .btn {
-    padding: 14px 30px;
-    font-size: 0.85rem;
-  }
-
-  /* SECTIONS */
-  section {
-    padding: 4rem 1.2rem;
-  }
-
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 2.5rem;
-  }
-
-  /* ABOUT */
-  .about {
-    gap: 2rem;
-    text-align: center;
-  }
-
-  .about p {
-    font-size: 1rem;
-    line-height: 1.7;
-  }
-
-  /* PROPERTIES */
-  .property-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .property img {
-    height: 240px;
-  }
-
-  /* TEAM */
-  .team-track {
-    grid-template-columns: 1fr;
-  }
-
-  .team-inner {
-    height: 360px;
-  }
-
-  /* CONTACT FORM */
-  .contact form {
-    gap: 1rem;
-  }
-
-  .contact input,
-  .contact textarea {
-    padding: 14px;
-  }
-
-  /* MAP */
-  .map-wrapper {
-    gap: 2rem;
-  }
-
-  .map-wrapper iframe {
-    height: 280px;
-  }
-
-  .map-info {
-    padding: 1.5rem;
-  }
-
-  /* WHATSAPP */
-  .whatsapp {
-    width: 55px;
-    height: 55px;
-    font-size: 26px;
-    right: 20px;
-    bottom: 20px;
-  }
+@media(max-width: 768px) { 
+    .about, .contact-layout, .team-track { grid-template-columns: 1fr; }
+    /* Ensure text is visible on mobile since there is no hover */
+    .hero-content { opacity: 1; transform: translateY(0); padding: 20px; }
+    .hero::before { opacity: 0.5; }
+    .hero h1 { font-size: 2.5rem; }
 }
-
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="nav">
-    <a href="#" class="logo">
-      <img src="./logo.png" alt="SK Hospitality Logo">
-    </a>
-
-    <div class="menu-toggle" id="menu-btn"><span></span><span></span><span></span></div>
-    <nav>
-      <ul id="menu">
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#properties">Properties</a></li>
-        <li><a href="#team">Team</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </div>
+    <div class="nav">
+        <a href="#" class="logo"><img src="./logo.png" alt="SK Hospitality"></a>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#properties">Properties</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
 </header>
 
-<div id="menu-overlay"></div>
-
 <section class="hero">
-  <div>
-    <h1>Refining Luxury<br>Elevating Hospitality</h1>
-    <p>Strategic hospitality investments and premium resort development for global portfolios.</p>
-    <a href="#contact" class="btn">Connect With Us</a>
-  </div>
+    <div class="hero-content">
+        <h1>Refining Luxury</h1>
+        <p>Strategic hospitality investments and premium resort development.</p>
+        <a href="#contact" style="background: var(--gold); color: white; padding: 14px 35px; text-decoration: none; border-radius: 4px; font-weight: bold; font-size: 0.9rem; letter-spacing: 1px;">CONNECT WITH US</a>
+    </div>
 </section>
 
 <section id="about">
-  <div class="container about">
-    <div>
-      <h2>Defining Excellence</h2>
-      <p>SK Hospitality specializes in identifying and developing luxury hotels and high-return resorts. We bridge the gap between world-class hospitality and strategic investment advisory, ensuring long-term value for our partners.</p>
+    <div class="container about">
+        <div>
+            <h2>Defining Excellence</h2>
+            <p>SK Hospitality specializes in identifying and developing luxury hotels. We bridge the gap between world-class hospitality and strategic investment advisory.</p>
+        </div>
+        <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa" alt="Luxury Hotel Suite">
     </div>
-    <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa" alt="Luxury Hotel Room">
-  </div>
 </section>
 
-<section id="properties">
-  <div class="container">
-    <h2>Our Prestigious Portfolio</h2>
-    <div class="property-grid">
-      <div class="property"><img src="./holiday_inn.webp"><h4>Holiday Inn Express, Greenville OH</h4></div>
-      <div class="property"><img src="./holiday_inn1.webp"><h4>Holiday Inn Express, Gas City IN</h4></div>
-      <div class="property"><img src="./best.webp"><h4>Best Western Plus, Richmond IN</h4></div>
-      <div class="property"><img src="./sure_stay1.webp"><h4>SureStay by Best Western, Greenville OH</h4></div>
+<section id="properties" style="background: #fdfdfd;">
+    <div class="container">
+        <h2>Our Prestigious Portfolio</h2>
+        <div class="property-grid">
+            <div class="property"><img src="./holiday_inn.webp"><h4>Holiday Inn Express, Greenville OH</h4></div>
+            <div class="property"><img src="./holiday_inn1.webp"><h4>Holiday Inn Express, Gas City IN</h4></div>
+            <div class="property"><img src="./best.webp"><h4>Best Western Plus, Richmond IN</h4></div>
+            <div class="property"><img src="./sure_stay1.webp"><h4>SureStay by Best Western, Greenville OH</h4></div>
+        </div>
     </div>
-  </div>
 </section>
 
 <section id="team">
-  <div class="container">
-    <h2>Leadership Team</h2>
-    <div class="team-track">
-      <!-- <div class="team-card"><div class="team-inner"><div class="team-front"><img src="https://randomuser.me/api/portraits/men/32.jpg"><h4>John Carter</h4><p>CEO</p></div><div class="team-back"><h4>John Carter</h4><p>Expert in global acquisitions with 15+ years in luxury hospitality.</p></div></div></div>
-      <div class="team-card"><div class="team-inner"><div class="team-front"><img src="https://randomuser.me/api/portraits/women/44.jpg"><h4>Emma Stone</h4><p>COO</p></div><div class="team-back"><h4>Emma Stone</h4><p>Specializes in operational excellence and luxury service standards.</p></div></div></div>
-      <div class="team-card"><div class="team-inner"><div class="team-front"><img src="https://randomuser.me/api/portraits/men/65.jpg"><h4>David Lee</h4><p>Head of Strategy</p></div><div class="team-back"><h4>David Lee</h4><p>Focuses on market trends and hospitality risk management.</p></div></div></div>  
-      <div class="team-card"><div class="team-inner"><div class="team-front"><img src="https://randomuser.me/api/portraits/women/68.jpg"><h4>Sophia Ray</h4><p>Design Director</p></div><div class="team-back"><h4>Sophia Ray</h4><p>The vision behind our luxury resort aesthetics and architecture.</p></div></div></div>
-      <div class="team-card"><div class="team-inner"><div class="team-front"><img src="https://randomuser.me/api/portraits/65.jpg"><h4>Karan</h4><p>General Manager</p></div><div class="team-back"><h4>Karan</h4><p>As Property General Manager, Karan is responsible for the overall success of the hotel, including operations, revenue performance, and team development. With a career built from the ground up in hospitality, he understands every department’s role in delivering a seamless guest experience and continues to grow and learn in his role.</p></div></div></div> -->      
-      <!-- <div class="team-card">
-        <div class="team-inner">
-          <div class="team-front">
-            <img src="./team/karan.jpeg">
-            <h4>Karan</h4>
-            <h5>Property General Manager</h5>
-            <p>
-              As Property General Manager, Karan is responsible for the overall success of the hotel, including operations, revenue performance, and team development. With a career built from the ground up in hospitality, he understands every department’s role in delivering a seamless guest experience and continues to grow and learn in his role.
-          </div>
-          <div class="team-back">
-            <h4>Karan</h4>
-            
-
-            </p>
-          </div>
-        </div> 
-      </div> -->
-      <div class="team-card"><div class="team-inner"><div class="team-front"><img src="./team/karan.jpeg"><h4>Karan</h4><p>Property General Manager</p></div><div class="team-back"><h4>Karan</h4><p>As Property General Manager, Karan is responsible for the overall success of the hotel, including operations, revenue performance, and team development. With a career built from the ground up in hospitality, he understands every department’s role in delivering a seamless guest experience and continues to grow and learn in his role.</p></div></div></div>
-      <div class="team-card"><div class="team-inner"><div class="team-front"><img src="./team/hemangi.jpeg"><h4>Hemangi</h4><p>Senior HR & Accounting</p></div><div class="team-back"><h4>Hemangi</h4><p>Behind the scenes, Hemangi plays a vital role in keeping operations running smoothly. As Senior HR & Accounting, she supports both employees and leadership through accurate accounting, organized processes, and a commitment to the company. Her organized approach and deep understanding of financial controls help maintain operational stability and transparency across the organization.</p></div></div></div>
-      <div class="team-card"><div class="team-inner"><div class="team-front"><img src="./team/pruha.jpeg"><h4>Pruha</h4><p>Property General Manager</p></div><div class="team-back"><h4>Pruha</h4><p>Pruha’s hospitality journey began at the operational level, giving her a deep appreciation for the teamwork behind every great guest experience. Now serving as Property General Manager, she leads with a commitment to both guests and staff. Her experience across departments allows her to drive operational excellence, maintain brand standards, and foster a culture of accountability and service.</p></div></div></div>
-      <div class="team-card"><div class="team-inner"><div class="team-front"><img src="./team/usha.jpeg"><h4>Usha</h4><p>...</p></div><div class="team-back"><h4>Usha</h4><p>With a passion for cleanliness and hospitality, Usha began her career in housekeeping and quickly became known for her strong work ethic and attention to detail. She now leads her team with care, efficiency, and pride in their work. She plays a key role in creating a welcoming environment for guests by ensuring rooms and public spaces are consistently clean, comfortable, and well maintained.</p></div></div></div>
-      <div class="team-card"><div class="team-inner"><div class="team-front"><img src="./team/rami.jpeg"><h4>Rami</h4><p> VP / Operations</p></div><div class="team-back"><h4>Rami</h4><p>Starting his career as a housekeeper, Rami built his foundation in hospitality from the ground up. Through immense dedication and hands-on leadership, he advanced through every level of the organization to become VP/ Operations. Rami oversees property performance and guest satisfaction, ensuring each hotel delivers exceptional service and sustainable results.</p></div></div></div>
-      <div class="team-card"><div class="team-inner"><div class="team-front"><img src="./team/sam.jpeg"><h4>Sam</h4><p>Vice President and Chief Financial Officer </p></div><div class="team-back"><h4>Sam</h4><p>Sam began his career in the hospitality industry in 2006. As Vice President and Chief Financial Officer of SK Hotel Group, Sam oversees the company’s financial strategy, budgeting, forecasting, and overall financial performance. His disciplined approach to financial management has supported the company’s steady growth and expansion.</p></div></div></div>
-      <div class="team-card"><div class="team-inner"><div class="team-front"><img src="./team/komal.jpeg"><h4>Komal</h4><p>President and CEO </p></div><div class="team-back"><h4>Komal</h4><p>Komal's hospitality journey began in 2006 where she discovered her passion for hotel operations. As President and CEO, Komal continues to guide SK Hotel Group’s vision, growth, and culture, combining industry expertise with a genuine commitment to both guests and employees.</p></div></div></div>
-      <div class="team-card"><div class="team-inner"><div class="team-front"><img src="./team/crystal.jpeg"><h4>Crystal</h4><p>Property GM </p></div><div class="team-back"><h4>Crystal</h4><p>Crystal began her career with SK Hotel Group at just 16 years old as a Front Desk Associate. Through dedication, leadership, and commitment, she was promoted to the property GM. Crystal has since advanced to Director of Operations where she oversees & supports the performance, growth, and standards of the entire SK Hotel Group.</p></div></div></div>
+    <div class="container">
+        <h2>Leadership Team</h2>
+        <div class="team-track">
+            <div class="team-card"><div class="team-inner"><div class="team-front"><img src="./team/karan.jpeg"><h4>Karan</h4><p>Property General Manager</p></div><div class="team-back"><h4>Karan</h4><p>Responsible for overall success, operations, and revenue performance.</p></div></div></div>
+            <div class="team-card"><div class="team-inner"><div class="team-front"><img src="./team/hemangi.jpeg"><h4>Hemangi</h4><p>Senior HR & Accounting</p></div><div class="team-back"><h4>Hemangi</h4><p>Maintains stability through accurate accounting and financial controls.</p></div></div></div>
+            <div class="team-card"><div class="team-inner"><div class="team-front"><img src="./team/pruha.jpeg"><h4>Pruha</h4><p>Property General Manager</p></div><div class="team-back"><h4>Pruha</h4><p>Drives excellence, maintains brand standards, and fosters accountability.</p></div></div></div>
+            <div class="team-card"><div class="team-inner"><div class="team-front"><img src="./team/usha.jpeg"><h4>Usha</h4><p>We Care Clean/Back of the house</p></div><div class="team-back"><h4>Usha</h4><p>Ensures rooms and spaces are clean and comfortable for all guests.</p></div></div></div>
+            <div class="team-card"><div class="team-inner"><div class="team-front"><img src="./team/rami.jpeg"><h4>Rami</h4><p>VP Operations</p></div><div class="team-back"><h4>Rami</h4><p>Oversees property performance and consistent guest satisfaction.</p></div></div></div>
+            <div class="team-card"><div class="team-inner"><div class="team-front"><img src="./team/sam.jpeg"><h4>Sam</h4><p>VP & CFO</p></div><div class="team-back"><h4>Sam</h4><p>Oversees financial strategy and budgeting for steady growth.</p></div></div></div>
+            <div class="team-card"><div class="team-inner"><div class="team-front"><img src="./team/komal.jpeg"><h4>Komal</h4><p>President & CEO</p></div><div class="team-back"><h4>Komal</h4><p>Guides the vision and culture with industry-leading expertise.</p></div></div></div>
+            <div class="team-card"><div class="team-inner"><div class="team-front"><img src="./team/crystal.jpeg"><h4>Crystal</h4><p>Director of Operations</p></div><div class="team-back"><h4>Crystal</h4><p>Supports growth and standards across the entire SK Hotel Group.</p></div></div></div>
+        </div>
     </div>
-  </div>
 </section>
 
-<section id="contact" class="contact">
-  <div class="container">
-    <h2>Get In Touch</h2>
-    <form>
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Email Address" required>
-      <textarea rows="4" placeholder="How can we assist you with your hospitality needs?"></textarea>
-      <button type="submit">Send Inquiry</button>
-    </form>
-
-    <div class="map-wrapper">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117507.29177114227!2d72.43936319726563!3d23.022505000000005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fccd11707d56821!2sAhmedabad%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1700000000000"></iframe>
-      <div class="map-info">
-        <h3>Our Office</h3>
-        <p><strong>Address:</strong> 533 West Eaton Pike, Richmond 47374 IN</p>
-        <p><strong>Phone:</strong> +91 99999 99999</p>
-        <p><strong>Email:</strong> info@skhospitality.com</p>
-        <p><strong>Working Hours:</strong> Mon - Fri: 9:00 AM - 6:00 PM</p>
-      </div>
+<section id="contact">
+    <div class="container">
+        <h2>Get In Touch</h2>
+        <div class="contact-layout">
+            <div class="contact-form">
+                <input type="text" placeholder="Your Name">
+                <input type="email" placeholder="Email Address">
+                <textarea rows="5" placeholder="How can we assist you?"></textarea>
+                <button class="submit-btn">Send Inquiry</button>
+            </div>
+            <div class="slider-container">
+                <div class="slider-track">
+                    <div class="slide"><img src="./holiday_inn.webp"></div>
+                    <div class="slide"><img src="./best.webp"></div>
+                    <div class="slide"><img src="./holiday_inn1.webp"></div>
+                    <div class="slide"><img src="./sure_stay1.webp"></div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
 
-<footer style="background: #111; color: #999; text-align: center; padding: 4rem 2rem;">
-  © 2025 <span style="color: var(--gold); font-weight: 600;">SK Hospitality</span>. All Rights Reserved.
+<footer style="background: #111; color: #777; text-align: center; padding: 3rem;">
+    &copy; 2025 <span style="color: var(--gold);">SK Hospitality</span>. All Rights Reserved.
 </footer>
 
-<a href="https://wa.me/919999999999" class="whatsapp" target="_blank" aria-label="Chat on WhatsApp">💬</a>
-
-<script>
-// Logic to handle mobile menu and smooth scrolling
-const menuBtn=document.getElementById("menu-btn");
-const menu=document.getElementById("menu");
-const overlay=document.getElementById("menu-overlay");
-const links=menu.querySelectorAll("a");
-const sections=document.querySelectorAll("section");
-
-menuBtn.onclick=()=>{
-  menu.classList.toggle("active");
-  overlay.classList.toggle("active");
-  document.body.style.overflow = menu.classList.contains("active") ? "hidden" : "";
-};
-
-function closeMenu(){
-  menu.classList.remove("active");
-  overlay.classList.remove("active");
-  document.body.style.overflow="";
-}
-overlay.onclick=closeMenu;
-
-links.forEach(link=>{
-  link.onclick=e=>{
-    e.preventDefault();
-    const targetId = link.getAttribute("href");
-    const target = document.querySelector(targetId);
-    closeMenu();
-    if (target) {
-        window.scrollTo({
-            top: target.offsetTop - 120, // Offset for the larger header
-            behavior: "smooth"
-        });
-    }
-  };
-});
-
-window.addEventListener("scroll",()=>{
-  let current="";
-  sections.forEach(sec=>{
-    if(pageYOffset >= sec.offsetTop - 160) current = sec.id;
-  });
-  links.forEach(a=>{
-    a.classList.toggle("active", a.getAttribute("href") === "#" + current);
-  });
-});
-</script>
+<a href="https://wa.me/919999999999" style="position: fixed; right: 25px; bottom: 25px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; text-decoration: none; z-index: 1000;">💬</a>
 
 </body>
 </html>
