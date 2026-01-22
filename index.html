@@ -17,18 +17,37 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* Fixed scroll position for a taller header */
+section { scroll-margin-top: var(--header-height); }
+
 body { font-family: 'Inter', sans-serif; color: var(--text); scroll-behavior: smooth; overflow-x: hidden; line-height: 1.6; background-color: #fff; }
 
 /* --- HEADER --- */
 header {
-    position: fixed; top: 0; width: 100%;
-    /* background: #ffffff; z-index: 1000; */
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05) ;
-    background: linear-gradient(135deg, #0B1C2D, #1F3B5C); z-index: 1000;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99999;
+  background: linear-gradient(135deg, #0B1C2D, #1F3B5C);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
-/* .header-spacer {
-  height: calc(var(--header-height) + 0.5px);
-} */
+
+.nav {
+  max-width: 1400px;
+  margin: auto;
+  padding: 0 1.5rem;
+  min-height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo img {
+  height: 120px;
+  width: auto;
+}
+
+
 .nav {
     max-width: 1400px; margin: auto; padding: 0 2rem;
     display: flex; justify-content: space-between; align-items: center;
@@ -47,37 +66,61 @@ nav a { text-decoration: none; color: #fff; font-weight: 600; text-transform: up
 nav a:hover { color: var(--gold); }
 
 /* --- MOBILE MENU --- */
-.menu-toggle { display: none; flex-direction: column; cursor: pointer; }
-.menu-toggle span { width: 25px; height: 3px; background: #fff; margin: 4px 0; transition: .4s; }
+.menu-toggle { display: none; flex-direction: column; cursor: pointer; z-index: 100000; /* Force it above everything */
+    padding: 15px;}
+.menu-toggle span { width: 26px; height: 3px; background: #fff; margin: 4px 0; transition: .4s; }
 
 @media(max-width: 768px) {
-  :root { --header-height: 100px; }
-  .menu-toggle { display: flex; }
-  /* .logo img { height: 85px; }  */
-  nav ul {
+  :root { --header-height: 90px; }
+  .menu-toggle { display: flex; } 
+  /* nav ul {
     position: fixed; top: 0; right: -280%;
     height: 100%; width: 280px;
     background: #fff; flex-direction: column;  
     padding: 6rem 2rem;
     transition: .4s ease; z-index: 1001;
     box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-  }
-  nav ul a { color: #333; }
+  } */
+  nav ul {
+    position: fixed;
+    top: 0;
+    right: -280px;
+    width: 280px;
+    height: 100vh;
+    background: #fff;
+    padding: 6rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    transition: right 0.35s ease;
+    z-index: 1001;
+  }   
+  /* nav ul a { color: #333; }
   nav ul.active { right: 0; }
-  nav ul li { margin-bottom: 2rem; }  
-}
+  nav ul li { margin-bottom: 2rem; }   */
+  
+  nav ul.active {
+    right: 0;
+  }
 
-#menu-overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,.35);
-  opacity: 0; visibility: hidden;
-  transition: .3s; z-index: 1000;
+  nav ul a {
+    color: #333;
+    font-size: 0.95rem;
+  }
 }
+#menu-overlay {
+  position: fixed; 
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  display: none; /* Keep this none by default */
+  z-index: 1000;
+}
+/* No need for opacity/visibility here, JS handles the display toggle */
 #menu-overlay.active { opacity: 1; visibility: visible; }
 
 
 /* --- HERO (INTERACTIVE HOVER) --- */
-.hero {
+/* .hero {
     height: 85vh;
     padding-top: 20px;
     margin-top: var(--header-height);    
@@ -88,9 +131,9 @@ nav a:hover { color: var(--gold); }
     justify-content: center;
     position: relative;
     overflow: hidden;
-}
+} */
 /* Subtle permanent vignette to ensure edges are visible */
-.hero::after {
+/* .hero::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -115,16 +158,136 @@ nav a:hover { color: var(--gold); }
     opacity: 0;
     transform: translateY(20px);
     transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+} */
+ .hero {
+  min-height: 85vh;
+  margin-top: var(--header-height);
+  background: url("./merge5.png") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
 }
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  max-width: 850px;
+  padding: 1rem;
+}
+
+/* REMOVE HOVER DEPENDENCY */
+.hero-content {
+  opacity: 1;
+  transform: none;
+}
+
 .hero:hover::before { opacity: 1; }
 .hero:hover .hero-content { opacity: 1; transform: translateY(0); }
-.hero h1 { font-family: 'Playfair Display', serif; font-size: 4.5rem; margin-bottom: 10px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-.hero p { font-size: 1.5rem; margin-bottom: 30px; font-weight: 300; letter-spacing: 2px; }
+/* .hero h1 { font-family: 'Playfair Display', serif; font-size: 4.5rem; margin-bottom: 10px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+.hero p { font-size: 1.5rem; margin-bottom: 30px; font-weight: 300; letter-spacing: 2px; } */
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  line-height: 1.2;
+}
+
+.hero p {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  margin: 1.2rem 0 2rem;
+}
+
 
 /* --- SECTIONS --- */
-section { padding: 6rem 2rem; }
+/* section { padding: 6rem 2rem; } */
+section {
+  padding: 5rem 1.5rem;
+}
+
+/* .about {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 3rem;
+} */
+.about {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 3rem;
+}
+
+/* .property-grid,
+.team-track {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+} */
+
+.property-grid,
+.team-track {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
 .container { max-width: 1200px; margin: auto; }
-h2 { text-align: center; color: var(--gold); font-family: 'Playfair Display', serif; margin-bottom: 3.5rem; font-size: 2.8rem; letter-spacing: 1px; }
+h2 { text-align: center; color: var(--gold); 
+     font-family: 'Playfair Display', serif; margin-bottom: 3.5rem; font-size: 2.8rem; letter-spacing: 1px; }
+h2::after {
+  content: ""; width: 80px; height: 2px;
+  background: var(--gold); display: block; margin: 20px auto 0;
+}     
+
+/* ABOUT */
+/* .about { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.about img { width: 100%; border-radius: 4px; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+.about p { line-height: 2; color: #555; font-size: 1.1rem; } */
+
+/* ===============================
+   ABOUT SECTION – RESPONSIVE
+   =============================== */
+
+.about {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 4rem;
+  align-items: center;
+}
+
+.about img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+}
+
+.about p {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: #555;
+}
+
+/* MOBILE REFINEMENT */
+@media (max-width: 576px) {
+  .about {
+    text-align: center;
+  }
+
+  .about p {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+}
+
 
 /* PROPERTIES */
 .property-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
@@ -143,7 +306,13 @@ h2 { text-align: center; color: var(--gold); font-family: 'Playfair Display', se
 .team-back { transform: rotateY(180deg); background: #fdfaf3; text-align: center; padding: 20px; }
 
 /* CONTACT & SOCIALS */
-.contact-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 4rem; }
+/* .contact-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 4rem; } */
+.contact-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+}
+
 .info-box { background: #fafafa; padding: 3rem; border-radius: 15px; border-top: 4px solid var(--gold); }
 .info-item { margin-bottom: 2rem; }
 .info-item h4 { color: var(--gold); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 8px; }
@@ -162,6 +331,10 @@ h2 { text-align: center; color: var(--gold); font-family: 'Playfair Display', se
 .contact-form input, .contact-form textarea { padding: 18px; border: 1px solid #e0e0e0; border-radius: 8px; width: 100%; font-size: 1rem; outline-color: var(--gold); }
 .submit-btn { background: var(--gold); color: white; border: none; padding: 20px; font-weight: bold; cursor: pointer; border-radius: 8px; letter-spacing: 1px; transition: 0.3s; }
 
+footer {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
 
 /* ===============================
    MOBILE RESPONSIVE (PHONES)
@@ -213,7 +386,7 @@ h2 { text-align: center; color: var(--gold); font-family: 'Playfair Display', se
   }
 
   /* ABOUT */
-  .about {
+  /* .about {
     gap: 2rem;
     text-align: center;
   }
@@ -221,8 +394,16 @@ h2 { text-align: center; color: var(--gold); font-family: 'Playfair Display', se
   .about p {
     font-size: 1rem;
     line-height: 1.7;
+  } */
+
+  .about {
+    text-align: center;
   }
 
+  .about p {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
   /* PROPERTIES */
   .property-grid {
     grid-template-columns: 1fr;
@@ -251,7 +432,7 @@ h2 { text-align: center; color: var(--gold); font-family: 'Playfair Display', se
     padding: 14px;
   }
 
-  /* MAP */
+  /* MAP
   .map-wrapper {
     gap: 2rem;
   }
@@ -262,15 +443,22 @@ h2 { text-align: center; color: var(--gold); font-family: 'Playfair Display', se
 
   .map-info {
     padding: 1.5rem;
-  }
+  } */
 
   /* WHATSAPP */
-  .whatsapp {
+  /* .whatsapp {
     width: 55px;
     height: 55px;
     font-size: 26px;
     right: 20px;
     bottom: 20px;
+  } */
+   .whatsapp {
+    width: 52px;
+    height: 52px;
+    font-size: 24px;
+    right: 16px;
+    bottom: 16px;
   }
 }
 
@@ -297,7 +485,7 @@ h2 { text-align: center; color: var(--gold); font-family: 'Playfair Display', se
     </div>
 </header>
 <div id="menu-overlay"></div>
-<!-- <div class="header-spacer"></div> -->
+
 <section class="hero">
     <div class="hero-content">
         <!-- <h1>Refining Luxury</h1>
@@ -306,6 +494,16 @@ h2 { text-align: center; color: var(--gold); font-family: 'Playfair Display', se
     <p>Strategic hospitality investments and premium resort development for global portfolios.</p>
         <a href="#contact" style="background: var(--gold); color: white; padding: 16px 40px; text-decoration: none; border-radius: 50px; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Experience Excellence</a>
     </div>
+</section>
+
+<section id="about">
+  <div class="container about">
+    <div>
+      <h2>Defining Excellence</h2>
+      <p>SK Hospitality specializes in identifying and developing luxury hotels and high-return resorts. We bridge the gap between world-class hospitality and strategic investment advisory, ensuring long-term value for our partners.</p>
+    </div>
+    <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa" alt="Luxury Hotel Room">
+  </div>
 </section>
 
 <section id="properties">
@@ -381,49 +579,59 @@ h2 { text-align: center; color: var(--gold); font-family: 'Playfair Display', se
     <i class="fab fa-whatsapp"></i>
 </a>
 <script>
-// Logic to handle mobile menu and smooth scrolling
-const menuBtn=document.getElementById("menu-btn");
-const menu=document.getElementById("menu");
-const overlay=document.getElementById("menu-overlay");
-const links=menu.querySelectorAll("a");
-const sections=document.querySelectorAll("section");
+// --- 1. MOBILE MENU LOGIC ---
+const menuBtn = document.getElementById("menu-btn");
+const menu = document.getElementById("menu");
+const overlay = document.getElementById("menu-overlay");
 
-menuBtn.onclick=()=>{
-  menu.classList.toggle("active");
-  overlay.classList.toggle("active");
-  document.body.style.overflow = menu.classList.contains("active") ? "hidden" : "";
-};
-
-function closeMenu(){
-  menu.classList.remove("active");
-  overlay.classList.remove("active");
-  document.body.style.overflow="";
+function toggleMenu() {
+    const isActive = menu.classList.toggle("active");
+    overlay.classList.toggle("active");
+    
+    // Change overlay display so it doesn't block clicks when hidden
+    overlay.style.display = isActive ? "block" : "none";
+    
+    // Prevent background scrolling when menu is open
+    document.body.style.overflow = isActive ? "hidden" : "";
 }
-overlay.onclick=closeMenu;
 
-links.forEach(link=>{
-  link.onclick=e=>{
-    e.preventDefault();
-    const targetId = link.getAttribute("href");
-    const target = document.querySelector(targetId);
-    closeMenu();
-    if (target) {
-        window.scrollTo({
-            top: target.offsetTop - 120, // Offset for the larger header
-            behavior: "smooth"
-        });
-    }
-  };
-});
+function closeMenu() {
+    menu.classList.remove("active");
+    overlay.classList.remove("active");
+    overlay.style.display = "none";
+    document.body.style.overflow = "";
+}
 
-window.addEventListener("scroll",()=>{
-  let current="";
-  sections.forEach(sec=>{
-    if(pageYOffset >= sec.offsetTop - 160) current = sec.id;
-  });
-  links.forEach(a=>{
-    a.classList.toggle("active", a.getAttribute("href") === "#" + current);
-  });
+// Click events for opening/closing
+menuBtn.onclick = toggleMenu;
+overlay.onclick = closeMenu;
+
+
+// --- 2. DYNAMIC SCROLL LOGIC ---
+const navLinks = document.querySelectorAll('nav ul li a[href^="#"]');
+
+navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+
+        if (targetElement) {
+            // Close the menu first (for mobile)
+            closeMenu();
+
+            // Calculate exact position based on current header height
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+        }
+    });
 });
 </script>
 </body>
