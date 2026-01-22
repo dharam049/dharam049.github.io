@@ -133,7 +133,7 @@ nav a:hover { color: var(--gold); }
     overflow: hidden;
 } */
 /* Subtle permanent vignette to ensure edges are visible */
-/* .hero::after {
+.hero::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -158,7 +158,7 @@ nav a:hover { color: var(--gold); }
     opacity: 0;
     transform: translateY(20px);
     transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-} */
+}
  .hero {
   min-height: 85vh;
   margin-top: var(--header-height);
@@ -186,10 +186,10 @@ nav a:hover { color: var(--gold); }
 }
 
 /* REMOVE HOVER DEPENDENCY */
-.hero-content {
+/* .hero-content {
   opacity: 1;
   transform: none;
-}
+} */
 
 .hero:hover::before { opacity: 1; }
 .hero:hover .hero-content { opacity: 1; transform: translateY(0); }
@@ -198,7 +198,7 @@ nav a:hover { color: var(--gold); }
 
 .hero h1 {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  font-size: clamp(1.0rem, 2vw, 2.0rem);
   line-height: 1.2;
 }
 
@@ -302,7 +302,7 @@ h2::after {
 .team-inner { position: relative; width: 100%; height: 100%; transition: transform 0.8s; transform-style: preserve-3d; }
 .team-card:hover .team-inner { transform: rotateY(180deg); }
 .team-front, .team-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; border: 1px solid #f0f0f0; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
-.team-front img { width: 250px; height: 250px; border: 3px solid #1d3858; object-fit: cover; padding: 3px; }
+.team-front img { width: 250px; height: 250px;  object-fit: cover; padding: 3px; }
 .team-back { transform: rotateY(180deg); background: #fdfaf3; text-align: center; padding: 20px; }
 
 /* CONTACT & SOCIALS */
@@ -476,7 +476,6 @@ footer {
         <nav>
       <ul id="menu">
         <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
         <li><a href="#properties">Properties</a></li>
         <li><a href="#team">Team</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -490,8 +489,8 @@ footer {
     <div class="hero-content">
         <!-- <h1>Refining Luxury</h1>
         <p>Essence Of True Hospitality</p> -->
-        <h1>Refining Luxury<br>Elevating Hospitality</h1>
-    <p>Strategic hospitality investments and premium resort development for global portfolios.</p>
+        <h1>The Essence of True Hospitality:<br>Where Every Guest is a Legacy</h1>
+    <p></p>
         <a href="#contact" style="background: var(--gold); color: white; padding: 16px 40px; text-decoration: none; border-radius: 50px; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Experience Excellence</a>
     </div>
 </section>
@@ -500,7 +499,8 @@ footer {
   <div class="container about">
     <div>
       <h2>Defining Excellence</h2>
-      <p>SK Hospitality specializes in identifying and developing luxury hotels and high-return resorts. We bridge the gap between world-class hospitality and strategic investment advisory, ensuring long-term value for our partners.</p>
+      <p>"At SK Hospitality, we believe that true luxury is found at the intersection of heart and high-performance. Founded on the principles of integrity and innovation, we have spent decades refining the 'Essence of True Hospitality.'
+We don't just fill rooms; we build resilient brands. By blending the warmth of a Mediterranean welcome with the rigor of global investment standards, we ensure that every property in our portfolio is as culturally significant as it is financially strong. Whether we are managing a 5-star resort or advising on a strategic acquisition, our mission remains the same: to protect the spirit and grow the asset."</p>
     </div>
     <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa" alt="Luxury Hotel Room">
   </div>
