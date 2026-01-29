@@ -74,14 +74,6 @@ nav a:hover { color: var(--gold); }
 @media(max-width: 768px) {
   :root { --header-height: 90px; }
   .menu-toggle { display: flex; } 
-  /* nav ul {
-    position: fixed; top: 0; right: -280%;
-    height: 100%; width: 280px;
-    background: #fff; flex-direction: column;  
-    padding: 6rem 2rem;
-    transition: .4s ease; z-index: 1001;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-  } */
   nav ul {
     position: fixed;
     top: 0;
@@ -95,11 +87,7 @@ nav a:hover { color: var(--gold); }
     gap: 2rem;
     transition: right 0.35s ease;
     z-index: 1001;
-  }   
-  /* nav ul a { color: #333; }
-  nav ul.active { right: 0; }
-  nav ul li { margin-bottom: 2rem; }   */
-  
+  }    
   nav ul.active {
     right: 0;
   }
@@ -119,22 +107,8 @@ nav a:hover { color: var(--gold); }
 /* No need for opacity/visibility here, JS handles the display toggle */
 #menu-overlay.active { opacity: 1; visibility: visible; }
 
-
-/* --- HERO (INTERACTIVE HOVER) --- */
-/* .hero {
-    height: 85vh;
-    padding-top: 20px;
-    margin-top: var(--header-height);    
-    background: url("./merge5.png") no-repeat center center;
-    background-size: cover;
-    display: flex;
-    align-items: center; 
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-} */
 /* Subtle permanent vignette to ensure edges are visible */
-.hero::after {
+/* .hero::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -186,17 +160,8 @@ nav a:hover { color: var(--gold); }
   padding: 1rem;
 }
 
-/* REMOVE HOVER DEPENDENCY */
-/* .hero-content {
-  opacity: 1;
-  transform: none;
-} */
-
 .hero:hover::before { opacity: 1; }
 .hero:hover .hero-content { opacity: 1; transform: translateY(0); }
-/* .hero h1 { font-family: 'Playfair Display', serif; font-size: 4.5rem; margin-bottom: 10px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-.hero p { font-size: 1.5rem; margin-bottom: 30px; font-weight: 300; letter-spacing: 2px; } */
-
 .hero h1 {
   font-family: 'Playfair Display', serif;
   font-size: clamp(1.0rem, 2vw, 2.0rem);
@@ -206,32 +171,80 @@ nav a:hover { color: var(--gold); }
 .hero p {
   font-size: clamp(1rem, 2.5vw, 1.5rem);
   margin: 1.2rem 0 2rem;
+} */
+.hero {
+    min-height: 85vh;
+    margin-top: var(--header-height);
+    background: url("./merge5.png") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* LIGHT OVERLAY (image lighter) */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.20); /* ← subtle dark */
+    z-index: 1;
+}
+
+/* OPTIONAL: subtle vignette */
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.15) 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* CONTENT */
+.hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    color: #fff;
+    max-width: 850px;
+    padding: 1rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* HOVER ANIMATION */
+.hero:hover .hero-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* TYPOGRAPHY */
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.2rem, 2.5vw, 2.4rem);
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    margin: 1.2rem 0 2rem;
 }
 
 
 /* --- SECTIONS --- */
-/* section { padding: 6rem 2rem; } */
 section {
   padding: 5rem 1.5rem;
 }
 
-/* .about {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 3rem;
-} */
 .about {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 3rem;
 }
-
-/* .property-grid,
-.team-track {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
-} */
 
 .property-grid,
 .team-track {
@@ -247,11 +260,6 @@ h2::after {
   content: ""; width: 80px; height: 2px;
   background: var(--gold); display: block; margin: 20px auto 0;
 }     
-
-/* ABOUT */
-/* .about { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-.about img { width: 100%; border-radius: 4px; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
-.about p { line-height: 2; color: #555; font-size: 1.1rem; } */
 
 /* ===============================
    ABOUT SECTION – RESPONSIVE
@@ -295,7 +303,32 @@ h2::after {
 .property { position: relative; border-radius: 12px; overflow: hidden; height: 320px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
 .property img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
 .property:hover img { transform: scale(1.05); }
-.property h4 { position: absolute; bottom: 0; width: 100%; padding: 25px 20px; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,0.95)); font-size: 0.9rem; }
+/* .property h4 { position: absolute; bottom: 0; width: 100%; padding: 25px 20px; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,0.95)); font-size: 0.9rem; } */
+.property {
+    position: relative;
+}
+
+.property h4 {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 18px 16px;
+    color: #fff;
+    background: linear-gradient(transparent, rgba(0,0,0,0.95));
+    font-size: 0.8rem;          /* reduced size */
+    font-weight: 500;
+    text-align: center;         /* center text */
+    line-height: 1.4;
+}
+
+/* Optional: smaller second line */
+.property h4 span {
+    display: block;
+    font-size: 0.7rem;
+    opacity: 0.85;
+    margin-top: 4px;
+}
+
 
 /* TEAM */
 .team-track { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
@@ -307,7 +340,6 @@ h2::after {
 .team-back { transform: rotateY(180deg); background: #fdfaf3; text-align: center; padding: 20px; }
 
 /* CONTACT & SOCIALS */
-/* .contact-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 4rem; } */
 .contact-layout {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -385,17 +417,6 @@ footer {
     font-size: 2rem;
     margin-bottom: 2.5rem;
   }
-
-  /* ABOUT */
-  /* .about {
-    gap: 2rem;
-    text-align: center;
-  }
-
-  .about p {
-    font-size: 1rem;
-    line-height: 1.7;
-  } */
 
   .about {
     text-align: center;
@@ -500,7 +521,7 @@ footer {
   <div class="container about">
     <div>
       <h2>Defining Excellence</h2>
-      <p>"At SK Hospitality, we believe that true luxury is found at the intersection of heart and high-performance. Founded on the principles of integrity and innovation, we have spent decades refining the 'Essence of True Hospitality.'
+      <p style="text-align: justify; font-weight: bold;">"At SK Hospitality, we believe that true luxury is found at the intersection of heart and high-performance. Founded on the principles of integrity and innovation, we have spent decades refining the 'Essence of True Hospitality.'
 We don't just fill rooms; we build resilient brands. By blending the warmth of a Mediterranean welcome with the rigor of global investment standards, we ensure that every property in our portfolio is as culturally significant as it is financially strong. Whether we are managing a 5-star resort or advising on a strategic acquisition, our mission remains the same: to protect the spirit and grow the asset."</p>
     </div>
     <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa" alt="Luxury Hotel Room">
@@ -511,10 +532,27 @@ We don't just fill rooms; we build resilient brands. By blending the warmth of a
     <div class="container">
         <h2>Our Prestigious Portfolio</h2>
         <div class="property-grid">
-            <div class="property"><img src="./holiday_inn.webp"><h4>Holiday Inn Express, Greenville OH</h4></div>
-            <div class="property"><img src="./holiday_inn1.webp"><h4>Holiday Inn Express, Gas City IN</h4></div>
-            <div class="property"><img src="./best.webp"><h4>Best Western Plus, Richmond IN</h4></div>
-            <div class="property"><img src="./sure_stay1.webp"><h4>SureStay by Best Western, Greenville OH</h4></div>
+            <div class="property">
+              <a href="https://www.ihg.com/holidayinnexpress/hotels/us/en/greenville/gvekb/hoteldetail?cm_mmc=GoogleMaps-_-EX-_-US-_-GVEKB" target="_blank">
+              <img src="./holiday_inn.webp">
+              <h4>Holiday Inn Express, Greenville OH<br/>Owned by SK Hotels</h4>
+              </a>
+          </div>
+            <div class="property">
+              <a href="https://www.ihg.com/holidayinnexpress/hotels/us/en/gas-city/gincy/hoteldetail?cm_mmc=GoogleMaps-_-EX-_-US-_-GINCY" target="_blank">
+              <img src="./holiday_inn1.webp"><h4>Holiday Inn Express, Gas City IN<br/>Managed by SK Hotels</h4>
+              </a>
+            </div>
+            <div class="property">
+              <a href="https://richmondbw.com/" target="_blank">
+              <img src="./best.webp"><h4>Best Western Plus, Richmond IN<br/>Owned by SK Hotels</h4>
+            </a>
+            </div>
+            <div class="property">
+              <a href="https://www.bestwestern.com/en_US/book/hotels-in-greenville/surestay-by-best-western-greenville/propertyCode.55277.html" target="_blank">
+              <img src="./sure_stay1.webp"><h4>SureStay by Best Western,Greenville OH<br/>Managed by SK Hotels</h4>
+            </a>
+            </div>              
         </div>
     </div>
 </section>
@@ -545,10 +583,12 @@ We don't just fill rooms; we build resilient brands. By blending the warmth of a
         <h2>Get In Touch</h2>
         <div class="contact-layout">
             <div class="contact-form">
+                <form class="contact-form" action="script.php" method="POST">
                 <input type="text" placeholder="Your Name">
                 <input type="email" placeholder="Email Address">
                 <textarea rows="5" placeholder="How can we assist you?"></textarea>
                 <button class="submit-btn">Send Inquiry</button>
+              </form>
             </div>
             
             <div class="info-box">
