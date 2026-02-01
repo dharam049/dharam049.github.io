@@ -189,6 +189,7 @@ nav a:hover { color: var(--gold); }
     content: "";
     position: absolute;
     inset: 0;
+    background: rgba(0, 0, 0, 0.20); /* ← subtle dark */
     z-index: 1;
 }
 
@@ -204,33 +205,34 @@ nav a:hover { color: var(--gold); }
 
 /* CONTENT */
 .hero-content {
-    position: relative;
-    z-index: 3;
-    text-align: center;
-    color: #fff;
-    max-width: 850px;
-    padding: 1rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-/* HOVER ANIMATION */
-.hero:hover .hero-content {
-    opacity: 1;
-    transform: translateY(0);
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: #fff;
+  max-width: 920px;
+  padding: 2rem 2.5rem;
+  display: inline-block;
+  background: rgba(0,0,0,0.42);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  backdrop-filter: blur(4px);
 }
 
 /* TYPOGRAPHY */
 .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.2rem, 2.5vw, 2.4rem);
-    line-height: 1.2;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.6rem, 3.5vw, 3.2rem);
+  line-height: 1.15;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-shadow: 0 6px 20px rgba(0,0,0,0.45);
 }
 
 .hero p {
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-    margin: 1.2rem 0 2rem;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  margin: 0.9rem 0 1.6rem;
+  color: #f3f3f3;
 }
 
 
@@ -238,6 +240,8 @@ nav a:hover { color: var(--gold); }
 section {
   padding: 5rem 1.5rem;
 }
+
+/* (kept original h2 rules further below) */
 
 .about {
   display: grid;
@@ -251,6 +255,8 @@ section {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.5rem;
 }
+
+/* property grid and cards styled below in original section */
 
 .container { max-width: 1200px; margin: auto; }
 h2 { text-align: center; color: var(--gold); 
@@ -344,6 +350,8 @@ h2::after {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 3rem;
 }
+
+/* form styles are defined later; keeping original rules */
 
 .info-box { background: #fafafa; padding: 3rem; border-radius: 15px; border-top: 4px solid var(--gold); }
 .info-item { margin-bottom: 2rem; }
@@ -483,6 +491,216 @@ footer {
   }
 }
 
+.headline-marquee {
+  /* placed inside the header */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  display: none;
+  align-items: center;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2; /* inside header stacking context */
+  background: linear-gradient(90deg, rgba(11,28,45,0.02), rgba(31,59,92,0.02));
+  padding: 0 1.5rem;
+}
+.headline-marquee .marquee-track { display: inline-block; white-space: nowrap; }
+.headline-marquee .marquee-text {
+  display: inline-block;
+  padding: 0 2rem;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--gold);
+  font-weight: 700;
+  transform: translateX(100%);
+  opacity: 1;
+  animation: marqueeMove 8s linear forwards;
+}
+
+/* Smaller marquee on very small screens */
+@media (max-width: 480px) {
+  .headline-marquee { height: 44px; bottom: 0; display: none; }
+  .headline-marquee .marquee-text { font-size: 0.95rem; padding: 0 1rem; }
+}
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes scaleInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* Section animations */
+section {
+  opacity: 1;
+}
+
+section.animate {
+  animation: slideInFromBottom 2s ease-out;
+}
+
+/* Hero section - special styling */
+.hero {
+  opacity: 1;
+  animation: none;
+}
+
+/* Hero content animations */
+.hero-content h1 {
+  animation: slideInFromLeft 1.6s cubic-bezier(0.22,0.8,0.12,1) 0.25s forwards;
+  opacity: 0;
+  margin: 0 0 0.4rem;
+}
+
+.hero-content p {
+  animation: slideInFromLeft 1.6s cubic-bezier(0.22,0.8,0.12,1) 0.45s forwards;
+  opacity: 0;
+}
+
+.hero-content a {
+  animation: slideInFromLeft 1.6s cubic-bezier(0.22,0.8,0.12,1) 0.75s forwards;
+  opacity: 0;
+  display: inline-block;
+  padding: 14px 36px !important;
+  border-radius: 40px !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  text-decoration: none !important;
+}
+
+/* About section animations */
+#about h2 {
+  animation: slideInFromTop 2s ease-out forwards;
+}
+
+#about > .container > div:first-child {
+  animation: slideInFromLeft 2s ease-out 0.4s forwards;
+}
+
+#about > .container > img {
+  animation: slideInFromRight 2s ease-out 0.4s forwards;
+}
+
+/* Properties section animations */
+#properties h2 {
+  animation: slideInFromTop 2s ease-out forwards;
+}
+
+.property {
+  animation: scaleInLeft 1.8s ease-out forwards;
+}
+
+.property:nth-child(1) { animation: slideInFromLeft 1.8s ease-out 0.3s forwards; }
+.property:nth-child(2) { animation: slideInFromLeft 1.8s ease-out 0.5s forwards; }
+.property:nth-child(3) { animation: slideInFromRight 1.8s ease-out 0.7s forwards; }
+.property:nth-child(4) { animation: slideInFromRight 1.8s ease-out 0.9s forwards; }
+
+/* Team section animations */
+#team h2 {
+  animation: slideInFromTop 2s ease-out forwards;
+}
+
+.team-card {
+  animation: slideInFromLeft 1.8s ease-out forwards;
+}
+
+.team-card:nth-child(1) { animation: slideInFromLeft 1.8s ease-out 0.3s forwards; }
+.team-card:nth-child(2) { animation: slideInFromLeft 1.8s ease-out 0.5s forwards; }
+.team-card:nth-child(3) { animation: slideInFromLeft 1.8s ease-out 0.7s forwards; }
+.team-card:nth-child(4) { animation: slideInFromRight 1.8s ease-out 0.3s forwards; }
+.team-card:nth-child(5) { animation: slideInFromRight 1.8s ease-out 0.5s forwards; }
+.team-card:nth-child(6) { animation: slideInFromRight 1.8s ease-out 0.7s forwards; }
+.team-card:nth-child(7) { animation: slideInFromRight 1.8s ease-out 0.9s forwards; }
+.team-card:nth-child(8) { animation: slideInFromRight 1.8s ease-out 1.1s forwards; }
+
+/* Contact section animations */
+#contact h2 {
+  animation: slideInFromTop 2s ease-out forwards;
+}
+
+.contact-form {
+  animation: slideInFromLeft 2s ease-out 0.4s forwards;
+}
+
+.info-box {
+  animation: slideInFromRight 2s ease-out 0.4s forwards;
+}
+
+.contact-form input,
+.contact-form textarea {
+  animation: slideInFromLeft 1.5s ease-out forwards;
+}
+
+.contact-form input:nth-of-type(1) { animation-delay: 0.6s; }
+.contact-form input:nth-of-type(2) { animation-delay: 0.8s; }
+.contact-form textarea { animation-delay: 1s; }
+.submit-btn { animation: slideInFromBottom 1.5s ease-out 1.2s forwards; }
+
+/* Smaller marquee on very small screens */
+@media (max-width: 480px) {
+  .headline-marquee { height: 44px; bottom: 0; }
+  .headline-marquee .marquee-text { font-size: 0.95rem; padding: 0 1rem; }
+}
+
 </style>
 </head>
 
@@ -523,7 +741,7 @@ footer {
       <p style="text-align: justify; font-weight: bold;">"At SK Hospitality, we believe that true luxury is found at the intersection of heart and high-performance. Founded on the principles of integrity and innovation, we have spent decades refining the 'Essence of True Hospitality.'
 We don't just fill rooms; we build resilient brands. By blending the warmth of a Mediterranean welcome with the rigor of global investment standards, we ensure that every property in our portfolio is as culturally significant as it is financially strong. Whether we are managing a 5-star resort or advising on a strategic acquisition, our mission remains the same: to protect the spirit and grow the asset."</p>
     </div>
-    
+    <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa" alt="Luxury Hotel Room">
   </div>
 </section>
 
@@ -534,22 +752,22 @@ We don't just fill rooms; we build resilient brands. By blending the warmth of a
             <div class="property">
               <a href="https://www.ihg.com/holidayinnexpress/hotels/us/en/greenville/gvekb/hoteldetail?cm_mmc=GoogleMaps-_-EX-_-US-_-GVEKB" target="_blank">
               <img src="./holiday_inn.webp">
-              <h4>Holiday Inn Express, Greenville OH<br/>Owned by SK Hospitality</h4>
+              <h4>Holiday Inn Express, Greenville OH<br/>Owned by SK Hotels</h4>
               </a>
           </div>
             <div class="property">
               <a href="https://www.ihg.com/holidayinnexpress/hotels/us/en/gas-city/gincy/hoteldetail?cm_mmc=GoogleMaps-_-EX-_-US-_-GINCY" target="_blank">
-              <img src="./holiday_inn1.webp"><h4>Holiday Inn Express, Gas City IN<br/>Managed by SK Hospitality</h4>
+              <img src="./holiday_inn1.webp"><h4>Holiday Inn Express, Gas City IN<br/>Managed by SK Hotels</h4>
               </a>
             </div>
             <div class="property">
               <a href="https://richmondbw.com/" target="_blank">
-              <img src="./best.webp"><h4>Best Western Plus, Richmond IN<br/>Owned by SK Hospitality</h4>
+              <img src="./best.webp"><h4>Best Western Plus, Richmond IN<br/>Owned by SK Hotels</h4>
             </a>
             </div>
             <div class="property">
               <a href="https://www.bestwestern.com/en_US/book/hotels-in-greenville/surestay-by-best-western-greenville/propertyCode.55277.html" target="_blank">
-              <img src="./sure_stay1.webp"><h4>SureStay by Best Western,Greenville OH<br/>Managed by SK Hospitality</h4>
+              <img src="./sure_stay1.webp"><h4>SureStay by Best Western,Greenville OH<br/>Managed by SK Hotels</h4>
             </a>
             </div>              
         </div>
@@ -671,6 +889,89 @@ navLinks.forEach(link => {
                 behavior: "smooth"
             });
         }
+    });
+});
+
+// --- 3. SCROLL ANIMATIONS (Intersection Observer) ---
+const observerOptions = {
+    threshold: 0.15,
+    rootMargin: '0px 0px -10%'
+};
+
+const observerCallback = (entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            // Trigger animation when element enters viewport
+            const element = entry.target;
+            element.style.animation = 'none';
+            
+            // Small delay to ensure animation restarts
+            setTimeout(() => {
+                element.style.animation = '';
+            }, 50);
+        }
+    });
+};
+
+const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+// Observe all sections and elements with animation
+document.addEventListener('DOMContentLoaded', function() {
+    // Observe all sections (excluding hero)
+    document.querySelectorAll('section:not(.hero)').forEach(section => {
+        observer.observe(section);
+    });
+
+    // Observe property cards
+    document.querySelectorAll('.property').forEach(property => {
+        observer.observe(property);
+    });
+
+    // Observe team cards
+    document.querySelectorAll('.team-card').forEach(card => {
+        observer.observe(card);
+    });
+
+    // Observe heading elements
+    document.querySelectorAll('section h2').forEach(heading => {
+        observer.observe(heading);
+    });
+
+    // Observe contact form elements
+    document.querySelectorAll('.contact-form input, .contact-form textarea, .submit-btn').forEach(element => {
+        observer.observe(element);
+    });
+
+    // Observe about section elements
+    document.querySelectorAll('#about > .container > div, #about > .container > img').forEach(element => {
+        observer.observe(element);
+    });
+
+    // Observe info boxes
+    document.querySelectorAll('.info-box').forEach(box => {
+        observer.observe(box);
+    });
+});
+
+// --- 4. SMOOTH HOVER ANIMATIONS FOR PROPERTY CARDS ---
+document.querySelectorAll('.property').forEach(property => {
+    property.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-10px)';
+        this.style.transition = 'transform 0.3s ease';
+    });
+    property.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+    });
+});
+
+// --- 5. BUTTON HOVER ANIMATION ---
+document.querySelectorAll('.submit-btn').forEach(btn => {
+    btn.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.05)';
+        this.style.transition = 'transform 0.3s ease';
+    });
+    btn.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1)';
     });
 });
 </script>
