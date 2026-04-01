@@ -298,13 +298,88 @@ section {
 /* property grid and cards styled below in original section */
 
 .container { max-width: 1200px; margin: auto; }
-h2 { text-align: center; color: var(--gold); 
-     font-family: 'Playfair Display', serif; margin-bottom: 3.5rem; font-size: 2.8rem; letter-spacing: 1px; }
-h2::after {
+h2 { 
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 3.5rem;
+  font-size: 2.8rem;
+  letter-spacing: 1px;
+  font-weight: 700;
+
+  /* fallback */
+  color: #9a682a;
+
+  /* TOP → BOTTOM gradient */
+  background: linear-gradient(
+    to bottom,
+    #e7c47e 0%,   /* top light gold */
+    #c9994a 50%,  /* mid */
+    #9a682a 100%  /* bottom bronze */
+  );
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* subtle depth */
+  text-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+/* h2 { text-align: center; color: var(--gold); 
+     font-family: 'Playfair Display', serif; margin-bottom: 3.5rem; font-size: 2.8rem; letter-spacing: 1px; } */
+/* h2::after {
   content: ""; width: 80px; height: 2px;
   background: var(--gold); display: block; margin: 20px auto 0;
-}     
+}      */
+h2::after {
+  content: ""; 
+  width: 90px; 
+  height: 3px;
+  display: block; 
+  margin: 20px auto 0;
 
+  background: linear-gradient(
+    to bottom,
+    #e7c47e 0%,   /* same top */
+    #c9994a 50%,  /* same mid */
+    #9a682a 100%  /* same bottom */
+  );
+
+  border-radius: 2px;
+}
+
+.tagline-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.tagline {
+  max-width: 900px;
+  padding: 20px 30px;
+
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  line-height: 1.7;
+  font-weight: 600;
+  text-align: center;
+
+  color: #1f2937;
+
+  background: linear-gradient(
+    to bottom,
+    #ffffff,
+    #f9f6f0
+  );
+
+  border-left: 4px solid #e7c47e;
+  border-right: 4px solid #9a682a;
+
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+
+  letter-spacing: 0.4px;
+}
 /* ===============================
    ABOUT SECTION – RESPONSIVE
    =============================== */
@@ -463,7 +538,7 @@ footer {
     font-size: 2rem;
     margin-bottom: 2.5rem;
   }
-f
+
   .about {
     text-align: center;
   }
@@ -790,21 +865,28 @@ section.animate {
 <section class="hero-caption">
   <div class="container">
     <div class="hero-card">
-      <h1>The Essence of True Hospitality: <br>Where Every Guest is a Legacy</h1>
-      <p>Refining luxury with care, integrity and a commitment to exceptional guest experiences.</p>
+      <!-- <h1>Enhancing every stay through genuine care,<br>uncompromising integrity, and a dedication to creating memorable guest experiences.</h1> -->
+      <!-- <p>Refining luxury with care, integrity and a commitment to exceptional guest experiences.</p>
+      <p>Enhancing every stay through genuine care,<br>uncompromising integrity, and a dedication to creating memorable guest experiences.</p> -->
       <a href="#contact">Experience Excellence</a>
     </div>
   </div>
 </section>
 
+<!-- <br/><br/><h3 style="text-align: center;
+  margin-bottom: 20px;">Enhancing every stay through genuine care,uncompromising integrity, and a dedication to creating memorable guest experiences.</h3> -->
+  <div class="tagline-wrap">
+  <h3 class="tagline">
+    Enhancing every stay through genuine care, uncompromising integrity, and a dedication to creating memorable guest experiences.
+  </h3>
+</div>
 <section id="about">
   <div class="container about">
     <div>
       <h2>Defining Excellence</h2>
-      <p style="text-align: justify; font-weight: bold;">"At SK Hospitality, we believe that true luxury is found at the intersection of heart and high-performance. Founded on the principles of integrity and innovation, we have spent decades refining the 'Essence of True Hospitality.'
-We don't just fill rooms; we build resilient brands. By blending the warmth of a Mediterranean welcome with the rigor of global investment standards, we ensure that every property in our portfolio is as culturally significant as it is financially strong. Whether we are managing a 5-star resort or advising on a strategic acquisition, our mission remains the same: to protect the spirit and grow the asset."</p>
+      <p style="text-align: justify; font-weight: bold;">"At SK Hospitality, we believe true hospitality lives at the intersection of heart and high performance. Founded on the pillars of integrity and innovation, we have spent decades perfecting the 'Essence of True Hospitality.' Our dedicated management team does more than fill rooms; we build resilient properties. By blending the warmth of an exceptional guest experience with rigorous operational standards, we ensure every property in our portfolio is as culturally significant as it is financially strong. Whether we are managing a portfolio or advising on a strategic acquisition, our mission remains constant: to protect the spirit and grow the asset."</p>
     </div>
-    <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa" alt="Luxury Hotel Room">
+    <!-- <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa" alt="Luxury Hotel Room"> -->
   </div>
 </section>
 
@@ -825,7 +907,7 @@ We don't just fill rooms; we build resilient brands. By blending the warmth of a
         </div>
 
         <div class="property">
-          <a href="https://www.ihg.com/holidayinnexpress/hotels/us/en/greenville/gvekb/hoteldetail?cm_mmc=GoogleMaps-_-EX-_-US-_-GVEKB" target="_blank">
+          <a style="color: white;text-decoration: none;" href="https://www.ihg.com/holidayinnexpress/hotels/us/en/greenville/gvekb/hoteldetail?cm_mmc=GoogleMaps-_-EX-_-US-_-GVEKB" target="_blank">
             <img src="./holiday_inn.webp" alt="">
             <h4>Holiday Inn Express, Greenville OH<br>Owned by SK Hospitality</h4>
           </a>
@@ -883,9 +965,9 @@ We don't just fill rooms; we build resilient brands. By blending the warmth of a
         <h2>Get In Touch / Join our Team</h2>
         <div class="contact-layout">
             <div class="contact-form">
-                <form class="contact-form" action="script.php" method="POST">
-                <input type="text" name="name" placeholder="Your Name">
-                <input type="email" name="email" placeholder="Email Address">
+                <form class="contact-form" action="contact.php" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Email Address" required>
                 <textarea name="message" rows="5" placeholder="How can we assist you?"></textarea>
                 <button type="submit" class="submit-btn">Send Inquiry</button>
               </form>
@@ -903,8 +985,8 @@ We don't just fill rooms; we build resilient brands. By blending the warmth of a
                 
                 <h4>Follow Us</h4>
                 <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/rangam@skhotelgroup.com "><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/S_khospitality"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
